@@ -5,14 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xxz.reggie.common.BaseContext;
 import com.xxz.reggie.common.R;
 import com.xxz.reggie.dto.OrdersDto;
-import com.xxz.reggie.entity.AddressBook;
 import com.xxz.reggie.entity.OrderDetail;
 import com.xxz.reggie.entity.Orders;
-import com.xxz.reggie.entity.User;
-import com.xxz.reggie.service.AddressBookService;
 import com.xxz.reggie.service.OrderDetailService;
 import com.xxz.reggie.service.OrderService;
-import com.xxz.reggie.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +29,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private AddressBookService addressBookService;
 
     @Autowired
     private OrderDetailService orderDetailService;
