@@ -12,10 +12,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.PushBuilder;
-import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author xzxie
@@ -78,7 +74,7 @@ public class EmployeeController {
     public R<String> logout(HttpServletRequest request) {
         // 清理 session 中保存的当前员工的id
         request.getSession().removeAttribute("employee");
-        return R.success("推出成功");
+        return R.success("退出成功");
     }
 
     @PostMapping

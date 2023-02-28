@@ -14,11 +14,11 @@ function sendMsgApi(data) {
     })
 }
 
-function loginoutApi() {
-  return $axios({
-    'url': '/user/loginout',
-    'method': 'post',
-  })
+function logoutApi() {
+    return $axios({
+        'url': '/user/logout',
+        'method': 'post',
+    })
 }
 
   
