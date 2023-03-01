@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xxz.reggie.common.R;
 import com.xxz.reggie.dto.SetmealDto;
 import com.xxz.reggie.entity.Category;
-import com.xxz.reggie.entity.Dish;
 import com.xxz.reggie.entity.Setmeal;
 import com.xxz.reggie.service.CategoryService;
 import com.xxz.reggie.service.SetmealDishService;
@@ -13,10 +12,11 @@ import com.xxz.reggie.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -43,6 +43,7 @@ public class SetmealController {
      * @param setmealDto 请求的新增套餐信息
      * @return 处理结果
      */
+    @CacheEvict(value = "setmealCache", allEntries = true)
     @PostMapping
     public R<String> save(@RequestBody SetmealDto setmealDto) {
         log.info("套餐信息：{}", setmealDto);
@@ -104,6 +105,7 @@ public class SetmealController {
      * @param ids 待删除菜品的 id
      * @return 处理结果
      */
+    @CacheEvict(value = "setmealCache", allEntries = true)
     @DeleteMapping
     public R<String> delete(@RequestParam List<Long> ids) {
         log.info("ids = {}", ids);
@@ -117,6 +119,7 @@ public class SetmealController {
      * @param ids 请求修改的状态的套餐的 id
      * @return 处理结果
      */
+    @CacheEvict(value = "setmealCache", allEntries = true)
     @PostMapping("/status/{status}")
     public R<String> updateStatus(@PathVariable("status") int status,
                                   @RequestParam List<Long> ids) {
@@ -135,6 +138,7 @@ public class SetmealController {
         return R.success(setmealDto);
     }
 
+    @CacheEvict(value = "setmealCache", allEntries = true)
     @PutMapping
     public R<String> update(@RequestBody SetmealDto setmealDto) {
 
@@ -149,6 +153,7 @@ public class SetmealController {
      * @param setmeal 套餐查询条件
      * @return 符合条件的套餐数据
      */
+    @Cacheable(value = "setmealCache", key = "#setmeal.categoryId + '_' + #setmeal.status")
     @GetMapping("/list")
     public R<List<Setmeal>> list(Setmeal setmeal) {
         LambdaQueryWrapper<Setmeal> queryWrapper = new LambdaQueryWrapper<>();
