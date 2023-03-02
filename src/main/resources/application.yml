@@ -63,4 +63,5 @@ mybatis-plus:
       id-type: ASSIGN_ID
 
 reggie:
-  path: D:\WorkSpace\reggie_img\
+#  path: D:\WorkSpace\reggie_img\  # 本机地址
+  path: /usr/local/javaApp/img/   # 远程地址
